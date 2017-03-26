@@ -14,7 +14,6 @@ public class MinefieldTest {
 				+ ". . . .\n"
 				+ ". * . .\n"
 				+ ". . . .\n", 4, 4);
-		minefield.resolve();
 		assertEquals(2, minefield.getMines());
 	}
 
@@ -24,7 +23,6 @@ public class MinefieldTest {
 				+ ". . . .\n"
 				+ ". * . .\n"
 				+ ". . . .\n", 4, 4);
-		minefield.resolve();
 		String expected = "* 1 0 0\n"
 				+ "2 2 1 0\n"
 				+ "1 * 1 0\n"

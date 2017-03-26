@@ -22,22 +22,10 @@ public class Minefield {
 				minefield[i][j] = squares[j];
 			}
 		}
+		resolve();
 	}
 
-	private String minefieldToString() {
-		String newMinefield = "";
-		for(int i = 0; i < lines; i++) {
-			for(int j = 0; j < columns; j++) {
-				newMinefield = newMinefield.concat(minefield[i][j] + " ");
-			}
-			newMinefield = newMinefield.trim();
-			newMinefield = newMinefield.concat("\n");
-		}
-		newMinefield = newMinefield.trim();
-		return newMinefield;
-	}
-
-	public void resolve() {
+	private void resolve() {
 		for (int i = 0; i < lines; i++) {
 			for (int j = 0; j < columns; j++) {
 				if(isMine(i, j)) {
@@ -52,19 +40,14 @@ public class Minefield {
 	private void fillTips(int line, int column) {
 		int count = 0;
 
-		if(line - 1 >= 0) {
-			if(isMine(line - 1, column)) count++;
-			if(column - 1 >= 0 && isMine(line - 1, column - 1)) count++;
-			if(column + 1 < columns && isMine(line - 1, column + 1)) count++;
-		}
-
-		if(column - 1 >= 0 && isMine(line, column - 1)) count++;
-		if(column + 1 < columns && isMine(line, column + 1)) count++;
-
-		if(line + 1 < lines) {
-			if(isMine(line + 1, column)) count++;
-			if(column - 1 >= 0 && isMine(line + 1, column - 1)) count++;
-			if(column + 1 < columns && isMine(line + 1, column + 1)) count++;
+		for(int x = -1; x<=1; x++){
+		    if ( line+x < lines && line+x >= 0){
+		        for(int y = -1; y<=1; y++){
+		            if(column+y < columns && column+y >= 0 && isMine(line+x, column+y)){
+		            	count++;
+		            }
+		        }
+		    }
 		}
 
 		minefield[line][column] = String.valueOf(count);
@@ -79,7 +62,16 @@ public class Minefield {
 	}
 
 	public String getMinefield() {
-		return minefieldToString();
+		String newMinefield = "";
+		for(int i = 0; i < lines; i++) {
+			for(int j = 0; j < columns; j++) {
+				newMinefield = newMinefield.concat(minefield[i][j] + " ");
+			}
+			newMinefield = newMinefield.trim();
+			newMinefield = newMinefield.concat("\n");
+		}
+		newMinefield = newMinefield.trim();
+		return newMinefield;
 	}
 
 }
